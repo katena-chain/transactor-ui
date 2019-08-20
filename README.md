@@ -1,6 +1,6 @@
 # Transactor-UI
 
-[![Build Status](https://travis-ci.org/katena-chain/transactor-ui.svg?branch=master)](https://travis-ci.org/katena-chain/transactor-ui)
+[![Build Status](https://travis-ci.org/katena-chain/transactor-ui.svg?branch=v0.0.1)](https://travis-ci.org/katena-chain/transactor-ui)
 
 ## Requirements
 
@@ -29,16 +29,16 @@ Generate assets:
 go generate gui/main.go
 ```
 
-
+Build binary:
 ```bash
 go build -o build/transactor-ui cmd/main.go
 ```
 
 ## Using the tool
 
-From /cmd :
+Run binary :
 ```bash
-cd ../build && ./transactor-ui
+./build/transactor-ui
 ```
 
 ## Releases
