@@ -1,0 +1,73 @@
+# This is an example goreleaser.yaml file with some sane defaults.
+# Make sure to check the documentation at http://goreleaser.com
+project_name: transactor-ui
+
+dist: build/goreleaser
+
+before:
+  hooks:
+    - go mod download
+    - go generate ./...
+
+builds:
+  - id: "build_windows"
+    main: ./cmd/main.go
+    binary: transactor-ui
+    env:
+      - CGO_ENABLED=1
+      - CC=x86_64-w64-mingw32-gcc
+      - CCX=x86_64-w64-mingw32-g++
+    goos:
+      - windows
+    goarch:
+      - amd64
+
+  - id: "build_linux"
+    main: ./cmd/main.go
+    binary: transactor-ui
+    env:
+      - CGO_ENABLED=1
+      - CC=gcc
+      - CCX=gxx
+    goos:
+      - linux
+    goarch:
+      - amd64
+
+  - id: "build_darwin"
+    main: ./cmd/main.go
+    binary: transactor-ui
+    env:
+      - CGO_ENABLED=1
+      - CC=o32-clang
+    goos:
+      - darwin
+    goarch:
+      - amd64
+
+archives:
+  -
+    id: transactor-ui_archive
+    builds:
+      - build_windows
+      - build_linux
+      - build_darwin
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+    format: binary
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

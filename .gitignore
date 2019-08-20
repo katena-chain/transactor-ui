@@ -1,0 +1,12 @@
+# IDEs
+/.idea/
+/.vscode/
+.DS_Store
+
+# GO
+/build
+
+# Project
+/assets/assets.go
+transactor.db
+
